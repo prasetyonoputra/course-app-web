@@ -1,119 +1,211 @@
-import React from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import styled from "styled-components";
+
+const PageWrapper = styled.div`
+  background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+  color: #212529;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
+`;
+
+const StyledCol = styled(Col)`
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #333;
+`;
+
+const Title = styled.h2`
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 10px;
+`;
+
+const Subtitle = styled.p`
+  color: #6c757d;
+  margin-bottom: 20px;
+`;
+
+const Label = styled(Form.Label)`
+  font-weight: bold;
+  color: #333;
+`;
+
+const Input = styled(Form.Control)`
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  margin-bottom: 15px;
+`;
+
+const StyledButton = styled(Button)`
+  background-color: #007bff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const StyledLink = styled.a`
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #0056b3;
+  }
+`;
 
 export default function RegisterPage() {
+  const [loading, setLoading] = useState(true);
+  const [registering, setRegistering] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setRegistering(true);
+
+    const formData = new FormData(e.target);
+
+    try {
+      const response = await axios.post("/api/register", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 200) {
+        alert("Registration successful!");
+      } else {
+        alert("Registration failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("There was an error registering!", error);
+      alert("An error occurred. Please try again.");
+    } finally {
+      setRegistering(false);
+    }
+  };
+
   return (
-    <div style={styles.pageWrapper}>
+    <PageWrapper>
       <Container>
         <Row
           className="justify-content-center align-items-center"
           style={{ minHeight: "100vh" }}
         >
-          <Col md={6} lg={4} style={styles.card}>
-            <h2 className="text-center" style={styles.title}>
-              Create an Account
-            </h2>
-            <p className="text-center" style={styles.subtitle}>
+          <StyledCol md={6} lg={4}>
+            <Title className="text-center">Create an Account</Title>
+            <Subtitle className="text-center">
               Join us by creating a new account
-            </p>
-            <Form>
-              <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Label style={styles.label}>Full Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter your full name"
-                  style={styles.input}
-                />
-              </Form.Group>
+            </Subtitle>
 
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label style={styles.label}>Email address</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter email"
-                  style={styles.input}
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label style={styles.label}>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  style={styles.input}
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-                <Form.Label style={styles.label}>Confirm Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Confirm password"
-                  style={styles.input}
-                />
-              </Form.Group>
-
-              <Button type="submit" style={styles.button} className="w-100">
-                Register
-              </Button>
-
-              <div className="text-center mt-3">
-                <a href="/login" style={styles.link}>
-                  Already have an account? Login
-                </a>
+            {loading ? (
+              <div className="d-flex justify-content-center">
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
               </div>
-            </Form>
-          </Col>
+            ) : (
+              <Form onSubmit={handleRegister}>
+                <Form.Group className="mb-3" controlId="formBasicName">
+                  <Label>Full Name</Label>
+                  <Input
+                    type="text"
+                    placeholder="Enter your full name"
+                    name="fullName"
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicUsername">
+                  <Label>Username</Label>
+                  <Input
+                    type="text"
+                    placeholder="Enter your username"
+                    name="username"
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Label>Email address</Label>
+                  <Input
+                    type="email"
+                    placeholder="Enter email"
+                    name="email"
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Label>Password</Label>
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group
+                  className="mb-3"
+                  controlId="formBasicConfirmPassword"
+                >
+                  <Label>Confirm Password</Label>
+                  <Input
+                    type="password"
+                    placeholder="Confirm password"
+                    name="confirmPassword"
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicImageProfile">
+                  <Label>Profile Image</Label>
+                  <Input type="file" name="profileImage" required />
+                </Form.Group>
+
+                <StyledButton
+                  type="submit"
+                  className="w-100"
+                  disabled={registering}
+                >
+                  {registering ? (
+                    <Spinner animation="border" size="sm" />
+                  ) : (
+                    "Register"
+                  )}
+                </StyledButton>
+
+                <div className="text-center mt-3">
+                  <StyledLink href="/login">
+                    Already have an account? Login
+                  </StyledLink>
+                </div>
+              </Form>
+            )}
+          </StyledCol>
         </Row>
       </Container>
-    </div>
+    </PageWrapper>
   );
 }
-
-const styles = {
-  pageWrapper: {
-    backgroundColor: "#007bff",
-    color: "#fff",
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  card: {
-    backgroundColor: "#fff",
-    padding: "30px",
-    borderRadius: "10px",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    color: "#333",
-  },
-  title: {
-    fontWeight: "bold",
-    color: "#007bff",
-    marginBottom: "10px",
-  },
-  subtitle: {
-    color: "#6c757d",
-    marginBottom: "20px",
-  },
-  label: {
-    fontWeight: "bold",
-    color: "#333",
-  },
-  input: {
-    borderRadius: "5px",
-    border: "1px solid #ced4da",
-    padding: "10px",
-  },
-  button: {
-    backgroundColor: "#007bff",
-    border: "none",
-    padding: "10px 15px",
-    borderRadius: "5px",
-    fontSize: "16px",
-    fontWeight: "bold",
-  },
-  link: {
-    color: "#007bff",
-    textDecoration: "none",
-  },
-};

@@ -1,15 +1,16 @@
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import LoginPage from "./pages/LoginPage";
-import { BrowserRouter, Routes, Route } from "react-router";
-import RegisterPage from "./pages/RegisterPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import MyProfilePage from "./pages/MyProfilePage";
-import CartPage from "./pages/Cartpage";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
-    // <BrowserRouter basename="/course-app-web">
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
