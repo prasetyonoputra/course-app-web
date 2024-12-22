@@ -1,6 +1,6 @@
-import React from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import TopNavbar from "../components/TopNavbar";
 
 export default function MyProfilePage() {
@@ -29,49 +29,99 @@ export default function MyProfilePage() {
   };
 
   return (
-    <div style={styles.pageWrapper}>
+    <div
+      style={{
+        backgroundColor: "#f8f9fa",
+        paddingBottom: "20px",
+        minHeight: "100vh",
+      }}
+    >
       <TopNavbar balance={user.balance} />
 
       <Container>
-        <h1 className="text-center mb-4" style={styles.title}>
+        <h1
+          className="text-center mb-4"
+          style={{ fontWeight: "bold", color: "#007bff", marginBottom: "30px" }}
+        >
           My Profile
         </h1>
-        <Card style={styles.profileCard} className="mb-4">
+        <Card
+          style={{
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            borderRadius: "10px",
+            padding: "20px",
+            textAlign: "center",
+          }}
+          className="mb-4"
+        >
           <Card.Body>
-            <h2 style={styles.userName}>{user.name}</h2>
-            <p style={styles.userEmail}>{user.email}</p>
-            <p style={styles.userPhone}>{user.phone}</p>
-            <p style={styles.userAddress}>{user.address}</p>
-            <p style={styles.userBalance}>
+            <h2 style={{ fontWeight: "bold", fontSize: "24px", color: "#333" }}>
+              {user.name}
+            </h2>
+            <p style={{ color: "#6c757d", marginBottom: "10px" }}>
+              {user.email}
+            </p>
+            <p style={{ color: "#6c757d", marginBottom: "10px" }}>
+              {user.phone}
+            </p>
+            <p style={{ color: "#6c757d", marginBottom: "10px" }}>
+              {user.address}
+            </p>
+            <p
+              style={{
+                fontWeight: "bold",
+                color: "#28a745",
+                marginBottom: "15px",
+              }}
+            >
               Balance: ${user.balance.toFixed(2)}
             </p>
-            <Button variant="primary" style={styles.editButton}>
+            <Button
+              variant="primary"
+              style={{ padding: "5px 15px", borderRadius: "5px" }}
+            >
               Edit Profile
             </Button>
           </Card.Body>
         </Card>
 
-        <h3 className="mb-3" style={styles.sectionTitle}>
+        <h3
+          className="mb-3"
+          style={{ fontWeight: "bold", color: "#333", marginBottom: "15px" }}
+        >
           My Courses
         </h3>
         <Row>
           {user.courses.map((course) => (
             <Col key={course.id} md={6} lg={4} className="mb-4">
-              <Card style={styles.courseCard}>
+              <Card
+                style={{
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                  borderRadius: "10px",
+                }}
+              >
                 <Card.Img
                   variant="top"
                   src={course.image}
-                  style={styles.image}
+                  style={{
+                    borderTopLeftRadius: "10px",
+                    borderTopRightRadius: "10px",
+                  }}
                 />
                 <Card.Body>
-                  <Card.Title style={styles.cardTitle}>
+                  <Card.Title style={{ fontWeight: "bold", color: "#333" }}>
                     {course.title}
                   </Card.Title>
-                  <p style={styles.instructor}>
+                  <p style={{ color: "#6c757d", marginBottom: "5px" }}>
                     Instructor: {course.instructor}
                   </p>
-                  <p style={styles.progress}>Progress: {course.progress}</p>
-                  <Button variant="primary" style={styles.viewButton}>
+                  <p style={{ color: "#6c757d", marginBottom: "10px" }}>
+                    Progress: {course.progress}
+                  </p>
+                  <Button
+                    variant="primary"
+                    style={{ padding: "5px 10px", borderRadius: "5px" }}
+                  >
                     Continue
                   </Button>
                 </Card.Body>
@@ -83,77 +133,3 @@ export default function MyProfilePage() {
     </div>
   );
 }
-
-const styles = {
-  pageWrapper: {
-    backgroundColor: "#f8f9fa",
-    paddingBottom: "20px",
-    minHeight: "100vh",
-  },
-  title: {
-    fontWeight: "bold",
-    color: "#007bff",
-    marginBottom: "30px",
-  },
-  profileCard: {
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    borderRadius: "10px",
-    padding: "20px",
-    textAlign: "center",
-  },
-  userName: {
-    fontWeight: "bold",
-    fontSize: "24px",
-    color: "#333",
-  },
-  userEmail: {
-    color: "#6c757d",
-    marginBottom: "10px",
-  },
-  userPhone: {
-    color: "#6c757d",
-    marginBottom: "10px",
-  },
-  userAddress: {
-    color: "#6c757d",
-    marginBottom: "10px",
-  },
-  userBalance: {
-    fontWeight: "bold",
-    color: "#28a745",
-    marginBottom: "15px",
-  },
-  editButton: {
-    padding: "5px 15px",
-    borderRadius: "5px",
-  },
-  sectionTitle: {
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: "15px",
-  },
-  courseCard: {
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    borderRadius: "10px",
-  },
-  image: {
-    borderTopLeftRadius: "10px",
-    borderTopRightRadius: "10px",
-  },
-  cardTitle: {
-    fontWeight: "bold",
-    color: "#333",
-  },
-  instructor: {
-    color: "#6c757d",
-    marginBottom: "5px",
-  },
-  progress: {
-    color: "#6c757d",
-    marginBottom: "10px",
-  },
-  viewButton: {
-    padding: "5px 10px",
-    borderRadius: "5px",
-  },
-};

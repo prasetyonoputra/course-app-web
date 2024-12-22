@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import MyProfilePage from "./pages/MyProfilePage";
 import CartPage from "./pages/CartPage";
+import CoursePreviewPage from "./pages/CoursePreviewPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/profile" element={<MyProfilePage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/course/:id" element={<CoursePreviewPage />} />
       </Routes>
     </BrowserRouter>
   );

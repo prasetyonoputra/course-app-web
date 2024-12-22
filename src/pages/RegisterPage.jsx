@@ -1,72 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
-import styled from "styled-components";
-
-const PageWrapper = styled.div`
-  background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
-  color: #212529;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Roboto", sans-serif;
-`;
-
-const StyledCol = styled(Col)`
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  color: #333;
-`;
-
-const Title = styled.h2`
-  font-weight: bold;
-  color: #007bff;
-  margin-bottom: 10px;
-`;
-
-const Subtitle = styled.p`
-  color: #6c757d;
-  margin-bottom: 20px;
-`;
-
-const Label = styled(Form.Label)`
-  font-weight: bold;
-  color: #333;
-`;
-
-const Input = styled(Form.Control)`
-  border-radius: 5px;
-  border: 1px solid #ced4da;
-  padding: 10px;
-  margin-bottom: 15px;
-`;
-
-const StyledButton = styled(Button)`
-  background-color: #007bff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
-const StyledLink = styled.a`
-  color: #007bff;
-  text-decoration: none;
-  transition: color 0.3s;
-
-  &:hover {
-    color: #0056b3;
-  }
-`;
 
 export default function RegisterPage() {
   const [loading, setLoading] = useState(true);
@@ -106,17 +40,49 @@ export default function RegisterPage() {
   };
 
   return (
-    <PageWrapper>
+    <div
+      style={{
+        background: "linear-gradient(135deg, #6b73ff 0%, #000dff 100%)",
+        color: "#212529",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "Roboto, sans-serif",
+      }}
+    >
       <Container>
         <Row
           className="justify-content-center align-items-center"
           style={{ minHeight: "100vh" }}
         >
-          <StyledCol md={6} lg={4}>
-            <Title className="text-center">Create an Account</Title>
-            <Subtitle className="text-center">
+          <Col
+            md={6}
+            lg={4}
+            style={{
+              backgroundColor: "#fff",
+              padding: "30px",
+              borderRadius: "10px",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              color: "#333",
+            }}
+          >
+            <h2
+              className="text-center"
+              style={{
+                fontWeight: "bold",
+                color: "#007bff",
+                marginBottom: "10px",
+              }}
+            >
+              Create an Account
+            </h2>
+            <p
+              className="text-center"
+              style={{ color: "#6c757d", marginBottom: "20px" }}
+            >
               Join us by creating a new account
-            </Subtitle>
+            </p>
 
             {loading ? (
               <div className="d-flex justify-content-center">
@@ -127,42 +93,74 @@ export default function RegisterPage() {
             ) : (
               <Form onSubmit={handleRegister}>
                 <Form.Group className="mb-3" controlId="formBasicName">
-                  <Label>Full Name</Label>
-                  <Input
+                  <Form.Label style={{ fontWeight: "bold", color: "#333" }}>
+                    Full Name
+                  </Form.Label>
+                  <Form.Control
                     type="text"
                     placeholder="Enter your full name"
                     name="fullName"
                     required
+                    style={{
+                      borderRadius: "5px",
+                      border: "1px solid #ced4da",
+                      padding: "10px",
+                      marginBottom: "15px",
+                    }}
                   />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicUsername">
-                  <Label>Username</Label>
-                  <Input
+                  <Form.Label style={{ fontWeight: "bold", color: "#333" }}>
+                    Username
+                  </Form.Label>
+                  <Form.Control
                     type="text"
                     placeholder="Enter your username"
                     name="username"
                     required
+                    style={{
+                      borderRadius: "5px",
+                      border: "1px solid #ced4da",
+                      padding: "10px",
+                      marginBottom: "15px",
+                    }}
                   />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Label>Email address</Label>
-                  <Input
+                  <Form.Label style={{ fontWeight: "bold", color: "#333" }}>
+                    Email address
+                  </Form.Label>
+                  <Form.Control
                     type="email"
                     placeholder="Enter email"
                     name="email"
                     required
+                    style={{
+                      borderRadius: "5px",
+                      border: "1px solid #ced4da",
+                      padding: "10px",
+                      marginBottom: "15px",
+                    }}
                   />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Label>Password</Label>
-                  <Input
+                  <Form.Label style={{ fontWeight: "bold", color: "#333" }}>
+                    Password
+                  </Form.Label>
+                  <Form.Control
                     type="password"
                     placeholder="Password"
                     name="password"
                     required
+                    style={{
+                      borderRadius: "5px",
+                      border: "1px solid #ced4da",
+                      padding: "10px",
+                      marginBottom: "15px",
+                    }}
                   />
                 </Form.Group>
 
@@ -170,42 +168,78 @@ export default function RegisterPage() {
                   className="mb-3"
                   controlId="formBasicConfirmPassword"
                 >
-                  <Label>Confirm Password</Label>
-                  <Input
+                  <Form.Label style={{ fontWeight: "bold", color: "#333" }}>
+                    Confirm Password
+                  </Form.Label>
+                  <Form.Control
                     type="password"
                     placeholder="Confirm password"
                     name="confirmPassword"
                     required
+                    style={{
+                      borderRadius: "5px",
+                      border: "1px solid #ced4da",
+                      padding: "10px",
+                      marginBottom: "15px",
+                    }}
                   />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicImageProfile">
-                  <Label>Profile Image</Label>
-                  <Input type="file" name="profileImage" required />
+                  <Form.Label style={{ fontWeight: "bold", color: "#333" }}>
+                    Profile Image
+                  </Form.Label>
+                  <Form.Control
+                    type="file"
+                    name="profileImage"
+                    required
+                    style={{
+                      borderRadius: "5px",
+                      border: "1px solid #ced4da",
+                      padding: "10px",
+                      marginBottom: "15px",
+                    }}
+                  />
                 </Form.Group>
 
-                <StyledButton
+                <Button
                   type="submit"
                   className="w-100"
                   disabled={registering}
+                  style={{
+                    backgroundColor: "#007bff",
+                    border: "none",
+                    padding: "10px 15px",
+                    borderRadius: "5px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    transition: "background-color 0.3s",
+                  }}
                 >
                   {registering ? (
                     <Spinner animation="border" size="sm" />
                   ) : (
                     "Register"
                   )}
-                </StyledButton>
+                </Button>
 
                 <div className="text-center mt-3">
-                  <StyledLink href="/login">
+                  <a
+                    href="/login"
+                    style={{
+                      color: "#007bff",
+                      textDecoration: "none",
+                      transition: "color 0.3s",
+                    }}
+                  >
                     Already have an account? Login
-                  </StyledLink>
+                  </a>
                 </div>
               </Form>
             )}
-          </StyledCol>
+          </Col>
         </Row>
       </Container>
-    </PageWrapper>
+    </div>
   );
 }

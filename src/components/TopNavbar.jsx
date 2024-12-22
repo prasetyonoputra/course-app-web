@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Button, Container, Dropdown, Nav, Navbar } from "react-bootstrap";
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router";
-import styled from "styled-components";
 
 export default function TopNavbar({ balance = 0 }) {
   const navigate = useNavigate();
@@ -41,8 +40,19 @@ export default function TopNavbar({ balance = 0 }) {
     navigate("/cart");
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setIsLoggedIn(false);
+  };
+
   return (
-    <StyledNavbar sticky="top" bg="primary" variant="dark" expand="lg">
+    <Navbar
+      sticky="top"
+      bg="primary"
+      variant="dark"
+      expand="lg"
+      style={{ marginBottom: "20px" }}
+    >
       <Container>
         <Navbar.Brand onClick={() => navigate("/")} style={styles.navbarBrand}>
           MyCourses
@@ -50,7 +60,7 @@ export default function TopNavbar({ balance = 0 }) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto align-items-center">
-            <Balance>Balance: ${balance.toFixed(2)}</Balance>
+            <span style={styles.balance}>Balance: ${balance.toFixed(2)}</span>
             <Button
               variant="outline-light"
               style={styles.navButton}
@@ -67,9 +77,7 @@ export default function TopNavbar({ balance = 0 }) {
                   <Dropdown.Item onClick={() => navigate("/profile")}>
                     My Profile
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setIsLoggedIn(false)}>
-                    Logout
-                  </Dropdown.Item>
+                  <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             ) : (
@@ -84,46 +92,9 @@ export default function TopNavbar({ balance = 0 }) {
           </Nav>
         </Navbar.Collapse>
       </Container>
-    </StyledNavbar>
+    </Navbar>
   );
 }
-
-const StyledNavbar = styled(Navbar)`
-  margin-bottom: 20px;
-
-  @media (max-width: 768px) {
-    .navbar-brand {
-      font-size: 20px;
-    }
-
-    .nav-button {
-      margin-left: 0;
-      margin-top: 10px;
-      width: 100%;
-      text-align: center;
-    }
-
-    .balance {
-      margin-right: 0;
-      margin-bottom: 10px;
-      width: 100%;
-      text-align: center;
-    }
-  }
-`;
-
-const Balance = styled.span`
-  font-weight: bold;
-  color: #fff;
-  margin-right: 20px;
-
-  @media (max-width: 768px) {
-    margin-right: 0;
-    margin-bottom: 10px;
-    width: 100%;
-    text-align: center;
-  }
-`;
 
 const styles = {
   navbarBrand: {
@@ -135,5 +106,10 @@ const styles = {
     marginLeft: "10px",
     display: "flex",
     alignItems: "center",
+  },
+  balance: {
+    fontWeight: "bold",
+    color: "#fff",
+    marginRight: "20px",
   },
 };

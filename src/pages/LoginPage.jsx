@@ -10,73 +10,6 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import styled from "styled-components";
-
-// Styled components
-const PageWrapper = styled.div`
-  background-color: #007bff;
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Card = styled.div`
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  color: #333;
-`;
-
-const Title = styled.h2`
-  font-weight: bold;
-  color: #007bff;
-  margin-bottom: 10px;
-  text-align: center;
-`;
-
-const Subtitle = styled.p`
-  color: #6c757d;
-  margin-bottom: 20px;
-  text-align: center;
-`;
-
-const StyledLabel = styled(Form.Label)`
-  font-weight: bold;
-  color: #333;
-`;
-
-const StyledInput = styled(Form.Control)`
-  border-radius: 5px;
-  border: 1px solid #ced4da;
-  padding: 10px;
-`;
-
-const StyledButton = styled(Button)`
-  background-color: #007bff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  width: 100%;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
-const StyledLink = styled.a`
-  color: #007bff;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
 
 // API calls
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080/api";
@@ -161,16 +94,50 @@ export default function LoginPage() {
   };
 
   return (
-    <PageWrapper>
+    <div
+      style={{
+        backgroundColor: "#007bff",
+        color: "#fff",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Container>
         <Row
           className="justify-content-center align-items-center"
           style={{ minHeight: "100vh" }}
         >
           <Col md={6} lg={4}>
-            <Card>
-              <Title>Welcome Back</Title>
-              <Subtitle>Please login to your account</Subtitle>
+            <div
+              style={{
+                backgroundColor: "#fff",
+                padding: "30px",
+                borderRadius: "10px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                color: "#333",
+              }}
+            >
+              <h2
+                style={{
+                  fontWeight: "bold",
+                  color: "#007bff",
+                  marginBottom: "10px",
+                  textAlign: "center",
+                }}
+              >
+                Welcome Back
+              </h2>
+              <p
+                style={{
+                  color: "#6c757d",
+                  marginBottom: "20px",
+                  textAlign: "center",
+                }}
+              >
+                Please login to your account
+              </p>
               {loading ? (
                 <div className="d-flex justify-content-center">
                   <Spinner animation="border" role="status">
@@ -186,47 +153,85 @@ export default function LoginPage() {
                     <Alert variant="success">{successMessage}</Alert>
                   )}
                   <Form.Group className="mb-3" controlId="formBasicUsername">
-                    <StyledLabel>Username</StyledLabel>
-                    <StyledInput
+                    <Form.Label style={{ fontWeight: "bold", color: "#333" }}>
+                      Username
+                    </Form.Label>
+                    <Form.Control
                       type="text"
                       placeholder="Enter username"
                       required
+                      style={{
+                        borderRadius: "5px",
+                        border: "1px solid #ced4da",
+                        padding: "10px",
+                      }}
                     />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <StyledLabel>Password</StyledLabel>
-                    <StyledInput
+                    <Form.Label style={{ fontWeight: "bold", color: "#333" }}>
+                      Password
+                    </Form.Label>
+                    <Form.Control
                       type="password"
                       placeholder="Password"
                       required
+                      style={{
+                        borderRadius: "5px",
+                        border: "1px solid #ced4da",
+                        padding: "10px",
+                      }}
                     />
                   </Form.Group>
 
-                  <StyledButton
+                  <Button
                     type="submit"
                     className="w-100"
                     disabled={loginProcess}
+                    style={{
+                      backgroundColor: "#007bff",
+                      border: "none",
+                      padding: "10px 15px",
+                      borderRadius: "5px",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                      width: "100%",
+                      transition: "background-color 0.3s",
+                    }}
                   >
                     {loginProcess ? (
                       <Spinner animation="border" size="sm" />
                     ) : (
                       "Login"
                     )}
-                  </StyledButton>
+                  </Button>
 
                   <div className="d-flex justify-content-between mt-3">
-                    <StyledLink href="/forgot-password">
+                    <a
+                      href="/forgot-password"
+                      style={{
+                        color: "#007bff",
+                        textDecoration: "none",
+                      }}
+                    >
                       Forgot password?
-                    </StyledLink>
-                    <StyledLink href="/register">Register</StyledLink>
+                    </a>
+                    <a
+                      href="/register"
+                      style={{
+                        color: "#007bff",
+                        textDecoration: "none",
+                      }}
+                    >
+                      Register
+                    </a>
                   </div>
                 </Form>
               )}
-            </Card>
+            </div>
           </Col>
         </Row>
       </Container>
-    </PageWrapper>
+    </div>
   );
 }

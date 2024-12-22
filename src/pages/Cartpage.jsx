@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Button, ListGroup } from "react-bootstrap";
+import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import TopNavbar from "../components/TopNavbar";
 
 export default function CartPage() {
@@ -40,24 +40,48 @@ export default function CartPage() {
   );
 
   return (
-    <div style={styles.pageWrapper}>
+    <div
+      style={{
+        backgroundColor: "#f8f9fa",
+        paddingBottom: "20px",
+        minHeight: "100vh",
+      }}
+    >
       <TopNavbar />
 
       <Container>
-        <h1 className="text-center mb-4" style={styles.title}>
+        <h1
+          className="text-center mb-4"
+          style={{ fontWeight: "bold", color: "#007bff", padding: "10px 20px" }}
+        >
           Your Cart
         </h1>
 
         <ListGroup variant="flush">
           {cart.map((item) => (
-            <ListGroup.Item key={item.id} style={styles.listItem}>
+            <ListGroup.Item
+              key={item.id}
+              style={{ padding: "15px", borderBottom: "1px solid #ddd" }}
+            >
               <Row>
                 <Col xs={3} md={2} className="text-center">
-                  <img src={item.image} alt={item.title} style={styles.image} />
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      borderRadius: "5px",
+                    }}
+                  />
                 </Col>
                 <Col xs={9} md={6} className="d-flex flex-column">
-                  <h5 style={styles.cardTitle}>{item.title}</h5>
-                  <span style={styles.price}>${item.price.toFixed(2)}</span>
+                  <h5 style={{ fontWeight: "bold", color: "#333" }}>
+                    {item.title}
+                  </h5>
+                  <span style={{ fontWeight: "bold", color: "#28a745" }}>
+                    ${item.price.toFixed(2)}
+                  </span>
                 </Col>
                 <Col
                   xs={12}
@@ -72,7 +96,9 @@ export default function CartPage() {
                     >
                       -
                     </Button>
-                    <span style={styles.quantity}>{item.quantity}</span>
+                    <span style={{ margin: "0 10px", fontWeight: "bold" }}>
+                      {item.quantity}
+                    </span>
                     <Button
                       variant="outline-secondary"
                       size="sm"
@@ -96,7 +122,7 @@ export default function CartPage() {
 
         <div className="text-center mt-4">
           <h3>Total: ${totalPrice.toFixed(2)}</h3>
-          <Button variant="success" size="lg" style={styles.checkoutButton}>
+          <Button variant="success" size="lg" style={{ marginTop: "20px" }}>
             Checkout
           </Button>
         </div>
@@ -104,40 +130,3 @@ export default function CartPage() {
     </div>
   );
 }
-
-const styles = {
-  pageWrapper: {
-    backgroundColor: "#f8f9fa",
-    paddingBottom: "20px",
-    minHeight: "100vh",
-  },
-  title: {
-    fontWeight: "bold",
-    color: "#007bff",
-    padding: "10px 20px",
-  },
-  listItem: {
-    padding: "15px",
-    borderBottom: "1px solid #ddd",
-  },
-  image: {
-    width: "100px",
-    height: "100px",
-    borderRadius: "5px",
-  },
-  cardTitle: {
-    fontWeight: "bold",
-    color: "#333",
-  },
-  price: {
-    fontWeight: "bold",
-    color: "#28a745",
-  },
-  quantity: {
-    margin: "0 10px",
-    fontWeight: "bold",
-  },
-  checkoutButton: {
-    marginTop: "20px",
-  },
-};
